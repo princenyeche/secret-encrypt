@@ -17,4 +17,10 @@ b = encode(a, secret, gn)
 c = decode(b, secret, gn)
 # Output:
 # This is a secret message or password
+# Output: if the secret is wrong
+# Failure decrypting data
 ```
+# Use cases
+* Safely store a password or token validate that it is signed before it can be decoded.
+* Transmit a large set of strings encrypted with the smallest size possible .
+* Create your own `cipher block` and be the only one who can decrypt it.
