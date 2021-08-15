@@ -21,6 +21,27 @@ c = decode(b, secret, gn)
 # Failure decrypting data
 ```
 # Use cases
-* Safely store a password or token validate that it is signed before it can be decoded.
+* Safely store a password or token, validate that it is signed before it can be decoded.
 * Transmit a large set of strings encrypted with the smallest size possible .
 * Create your own `cipher block` and be the only one who can decrypt it.
+
+There are other part of the script you can use. To easily create a password checking system
+```python
+from mistyfy import signs, verify_signs
+
+user = "prince"
+secrets = b'someimportstuff'
+password = b"myverypassword"
+
+encrypt_decrypt = signs(password, secret=secrets)
+print(encrypt_decrypt)
+# b'cfe13a4eef4e9c9ccbedf4ec05873ed0'
+# verify takes into two arguments to compare if their hashes are the same
+# in this situation, the signed data and the actual outcome.                                                                                                                                                                                                  
+verify = verify_signs(encrypt_decrypt, b'cfe13a4eef4e9c9ccbedf4ec05873ed0')
+if verify is True:
+    print('User is valid')
+else:
+    print('User is not valid')
+```
+
