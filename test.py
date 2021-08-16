@@ -26,13 +26,14 @@ class Mystery(unittest.TestCase):
 
     def test_encode(self):
         block = encode(STRING_BLOCK, SECRET, self.GEN)
-        self.assertIsInstance(block, dict, "Object should be a dictionary")
+        self.assertIsInstance(block, dict, "Signature found.")
         return block
 
     def test_decode(self):
         data = self.test_encode()
         decrypt = decode(data, SECRET, self.GEN)
-        self.assertIsInstance(decrypt, str, "Object should be a string")
+        self.assertFalse(decrypt.startswith("Unable to decrypt data, incorrect value") or
+                         decrypt.startswith("Failure encrypting data"), "An error has occurred")
         return decrypt
 
     def test_encode_decode_print(self):
