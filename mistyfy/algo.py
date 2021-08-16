@@ -4,8 +4,6 @@
 This is a simple algorithm that provides you the option
 to encrypt a series of strings in your own way, pass that string encoded up to 2 layers,
 send the data over the internet and decrypt the original data.
-The wonderful part of this module is that you can have a vast amount of
-text which is of little object size.
 """
 import base64 as b
 import hashlib
