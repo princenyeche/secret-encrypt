@@ -1,5 +1,5 @@
 # Mistyfy
-A package that helps encrypts any given string and returns an encrypted version of it.
+A package that helps encrypt any given string and returns an encrypted version of it.
 
 # Install
 You should download python, any version from 3.6.x will do. This should come with pip and you can
