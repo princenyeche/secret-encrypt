@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-A package that helps encrypts any given string and returns
+A package that helps encrypt any given string and returns
 an encrypted string with a signed hash.
 This data can be sent over the internet and only you will know
 how to decrypt it because you control the cipher.
