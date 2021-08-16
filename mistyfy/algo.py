@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 """
 This is a simple algorithm that provides you the option
-to encrypt a series of strings in your own way, pass that string encoded up to 3 layers,
+to encrypt a series of strings in your own way, pass that string encoded up to 2 layers,
 send the data over the internet and decrypt the original data.
 The wonderful part of this module is that you can have a vast amount of
-text which little object size.
+text which is of little object size.
 """
 import base64 as b
 import hashlib
@@ -14,7 +14,7 @@ import json as jo
 import typing as t
 import random as rt
 
-# static created ciphers to use - possible ascii characters
+# A static created ciphers to use - possible ascii characters
 # you can mutate this into more ascii characters known to you.
 ciphers = {
     'a': chr(15), 'b': 2, 'c': chr(3), 'd': 4,
@@ -94,9 +94,9 @@ def generator(cipher: dict, start: int = 70, stop: int = 1000) -> dict:
     return cipher
 
 
-def encode(data: str, 
-           secret: bytes, 
-           cipher: t.Optional[dict] = None, 
+def encode(data: str,
+           secret: bytes,
+           cipher: t.Optional[dict] = None,
            **kwargs: t.Any) -> t.Union[t.Dict[str, bytes], str]:
     """
      Encrypts a given string and send an output
@@ -150,9 +150,9 @@ def encode(data: str,
         return "Failure encrypting data"
 
 
-def decode(data: dict, 
-           secret: bytes, 
-           cipher: t.Optional[dict] = None, 
+def decode(data: dict,
+           secret: bytes,
+           cipher: t.Optional[dict] = None,
            **kwargs: t.Any) -> str:
     """
      Decrypts a dictionary and sends output as string
@@ -186,10 +186,8 @@ def decode(data: dict,
         else:
             if cipher is None:
                 raise TypeError('Expecting a series of cipher for each character.')
-            # get the signature of the signed data
-            decrypt = signs(data['data'], secret=secret, **kwargs)
             # validate that the signature is indeed correct with the data that was received.
-            validate_signature = verify_signs(decrypt, data['signature'])
+            validate_signature = verify_signs(data['data'], data['signature'], secret=secret, **kwargs)
             if validate_signature is True:
                 port = b.b64decode(data['data'])  # decode bs64 encrypted data
                 key = bytes.decode(port, encoding='utf-8')  # decode from bytes
@@ -210,7 +208,7 @@ def decode(data: dict,
         return "Failure decrypting data"
 
 
-def signs(data, secret, auth_size=16, **kwargs) -> bytes:
+def signs(data: bytes, secret: bytes, auth_size=16, **kwargs) -> bytes:
     """Using blake2b, a set of encryption algorithms to sign our data.
     :param data: The byte of data,
 
@@ -225,12 +223,19 @@ def signs(data, secret, auth_size=16, **kwargs) -> bytes:
     return h.hexdigest().encode('utf-8')
 
 
-def verify_signs(data: bytes, signature: bytes) -> bool:
+def verify_signs(data: bytes, signature: bytes, **kwargs) -> bool:
     """Verify that a signed byte is indeed the right hash.
     :param data: A byte of encrypted data
 
     :param signature: A signed hash
 
+    :param kwargs: Additional arguments to use
+             auth_key: Authenticate key passed to signs function
+             secret: A secret key passed to signs function
+             You can also use the same arguments applicable to blake2b
+            and they are passed to the signs function.
+
     :return: A boolean value to confirm True of False of signed hash.
     """
-    return hmac.compare_digest(data, signature)
+    confirm = signs(data, **kwargs)
+    return hmac.compare_digest(confirm, signature)
