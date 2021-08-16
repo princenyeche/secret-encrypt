@@ -1,6 +1,10 @@
 # Mistyfy
 A package that helps encrypts any given string and returns an encrypted version of it.
 
+# Install
+You should download python, any version from 3.6.x will do. This should come with pip and you can
+ use `pip install mistyfy` to complete the installation.
+
 # How to use it
 ```python
 from mistyfy import encode, decode, ciphers, generator
