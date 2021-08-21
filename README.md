@@ -26,14 +26,13 @@ c = decode(b, secret, gn)
 ```
 # Use cases
 * Safely store a password or token, validate that it is signed before it can be decoded.
-* Transmit a large set of strings encrypted with the smallest size possible.
+* Transmit a large set of encrypted strings.
 * Create your own `cipher block` and be the only one who can decrypt it.
 
 There are other part of the script you can use. To easily create a password checking system use `signs` and `verify_signs` function, this takes a similar example given by python doc for hashlib but with the ability to add a secret.
 ```python
 from mistyfy import signs, verify_signs
 
-user = "prince"
 secrets = b'someimportstuff'
 password = b"myverypassword"
 
