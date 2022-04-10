@@ -1,3 +1,10 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b00ef172196949319f43b12e6bc3f4ae)](https://www.codacy.com/gh/princenyeche/mistyfy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=princenyeche/mistyfy&amp;utm_campaign=Badge_Grade)
+[![Downloads](https://pepy.tech/badge/mistyfy)](https://pepy.tech/project/mistyfy)
+[![PyPI version](https://badge.fury.io/py/mistyfy.svg)](https://badge.fury.io/py/mistyfy)
+![GitHub](https://img.shields.io/github/license/princenyeche/mistyfy)
+[![Documentation Status](https://readthedocs.org/projects/mistyfy/badge/?version=latest)](https://mistyfy.readthedocs.io/en/latest/?badge=latest)
+[![Build Status](https://app.travis-ci.com/princenyeche/mistyfy.svg?branch=main)](https://app.travis-ci.com/princenyeche/mistyfy)
+
 # Mistyfy
 A package that helps encrypt any given string and returns an encrypted version of it. This package is very pythonic and has no dependencies. You can expand on it but it gives you the ability to encrypt data in a way only you can understand.
 
@@ -17,7 +24,7 @@ secret = b'somesecretkey' # create any secret key, easier if you use os.urandom(
 a = "This is a secret message or password"
 b = encode(a, secret, gn) 
 # output is a dictionary which contains a signed value when decrypting:
-# {'signature': b'02865b8419c0f4f541e2d31615d4f7c1', 'data': b'eyJtaXN0eWZ5IjogWzQ5Nxxxxxx...'}
+# 'eyJtaXN0eWZ5IjogWzQ5Nxxxxxx...
 c = decode(b, secret, gn)
 # Output:
 # This is a secret message or password
@@ -33,12 +40,12 @@ There are other part of the script you can use. To easily create a password chec
 ```python
 from mistyfy import signs, verify_signs
 
-secrets = b'someimportstuff'
-password = b"myverypassword"
+secrets = 'someimportstuff'
+password = 'myverypassword'
 
 encrypt_decrypt = signs(password, secret=secrets)
 print(encrypt_decrypt)
-# b'cfe13a4eef4e9c9ccbedf4ec05873ed0'
+# cfe13a4eef4e9c9ccbedf4ec05873ed0
 # verify takes into two arguments and 1 required keyword arg to compare if their hashes are the same
 # in this situation, the signed data and the actual outcome.                                                                                                                                                                                                  
 verify = verify_signs(password, encrypt_decrypt, secret=secrets)

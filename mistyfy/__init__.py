@@ -6,8 +6,9 @@ an encrypted string with a signed hash.
 This data can be sent over the internet and only you will know
 how to decrypt it because you control the cipher.
 """
-from mistyfy.algo import encode, decode, ciphers, signs, verify_signs, generator
+from mistyfy.misty import encode, decode, ciphers, signs, verify_signs, generator
 
 __all__ = ["encode", "decode", "ciphers", "signs", "verify_signs", "generator"]
-__version__ = "v1.0.0"
+__version__ = "v2.0.0"
 __author__ = "Prince Nyeche"
+__copyright__ = "MIT License"
