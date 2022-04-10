@@ -1,7 +1,12 @@
 # Mistyfy change log
 
-**Release 2.0.0** - 2022-04-11
+**Release 2.0.1** - 2022-04-11
 ### Patch
+* Minor patch updates
+
+
+**Release 2.0.0** - 2022-04-11
+### Major
 * Modified the entire module
 * Added readthedocs page
 * Renamed `algo.py` file to `misty.py` file
