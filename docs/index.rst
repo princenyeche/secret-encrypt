@@ -1,6 +1,30 @@
+.. image:: https://app.codacy.com/project/badge/Grade/b00ef172196949319f43b12e6bc3f4ae    
+   :target: https://www.codacy.com/gh/princenyeche/mistyfy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=princenyeche/mistyfy&amp;utm_campaign=Badge_Grade
+
+.. image:: https://pepy.tech/badge/mistyfy
+   :target: https://pepy.tech/project/mistyfy
+   :alt: Downloads
+
+.. image:: https://badge.fury.io/py/mistyfy.svg
+    :target: https://badge.fury.io/py/mistyfy
+    :alt: PyPI version
+    
+.. image:: https://img.shields.io/github/license/princenyeche/mistyfy   
+    :target: https://github.com/princenyeche/mistyfy 
+    :alt: GitHub
+    
+.. image:: https://readthedocs.org/projects/mistyfy/badge/?version=latest
+   :target: https://mistyfy.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+ 
+.. image:: https://app.travis-ci.com/princenyeche/mistyfy.svg?branch=main
+    :target: https://app.travis-ci.com/princenyeche/mistyfy
+    :alt: Build Status
+   
+
 Mistyfy
 =================
-A package that helps encrypts strings and returns an encrypted version of it.
+A package that helps encrypt any given string and returns an encrypted version of it. This package is very pythonic and has no dependencies. You can expand on it but it gives you the ability to encrypt data in a way only you can understand.
 
 
 Install
@@ -52,7 +76,7 @@ Use cases
 * Transmit a large set of encrypted strings.
 * Create your own cipher block and be the only one who can decrypt it.
 
-There are other part of the script you can use. To easily create a password checking system use signs and `verify_signs` function, this takes a similar example given by python doc for hashlib but with the ability to add a secret.
+There are other part of the script you can use. To easily create a password checking system use `signs` and `verify_signs` function, this takes a similar example given by python doc for hashlib but with the ability to add a secret.
 
 
 .. code-block:: python
@@ -75,7 +99,12 @@ There are other part of the script you can use. To easily create a password chec
  # Output
  # User is valid
  
- 
+
+.. toctree::
+   :maxdepth: 2
+   
+   api
+   
 
 API Reference
 ---------------
