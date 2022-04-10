@@ -77,21 +77,21 @@ def generator(cipher: dict,
               fmt: bool = True) -> t.Union[str, dict]:
     """Generates a random unique number for each characters.
 
-    .. code-block:: python
+     .. code-block:: python
 
-    from mistyfy import ciphers, generator
-    import json
-    import os
+     from mistyfy import ciphers, generator
+     import json
+     import os
 
-    if not os.path.exists('../data/config.json'):
-        gen = generator(ciphers, -400, 13931283)
-        json.dump(gen, open('../data/config.json', mode='w+', encoding='utf-8'),
+     if not os.path.exists('../data/config.json'):
+         gen = generator(ciphers, -400, 13931283)
+         json.dump(gen, open('../data/config.json', mode='w+', encoding='utf-8'),
                  indent=4, sort=True)
 
-    if __name__ == "__main__":
-        if os.path.isfile('../data/config.json'):
-            data = json.dumps(json.load(open('../data/config.json')))
-            print(data)
+     if __name__ == "__main__":
+         if os.path.isfile('../data/config.json'):
+             data = json.dumps(json.load(open('../data/config.json')))
+             print(data)
 
 
     :param cipher: A pseudo series of text
@@ -127,17 +127,18 @@ def encode(data: str,
 
      .. code-block:: python
 
-     from mistyfy import encode, ciphers, generator
-     import os
+      from mistyfy import encode, ciphers, generator
+      import os
 
-     gn = generator(ciphers, -400, 138192812)
+      gn = generator(ciphers, -400, 138192812)
 
-     secret = b'somesecretkey' # create any secret key, easier if you use os.urandom(n)
-     # secret = os.urandom(16)
-     a = "This is a secret message or password"
-     b = encode(a, secret, gn)
-     # output is a string base64, encoded with a signature, and mistyfied with the cipher.
-     # eyJtaXN0eWZ5IjogWzQ5Nxxxxxx...
+      secret = b'somesecretkey' # create any secret key, easier if you use os.urandom(n)
+      # secret = os.urandom(16)
+      a = "This is a secret message or password"
+      b = encode(a, secret, gn)
+      # output is a string base64, encoded with a signature, and mistyfied with the cipher.
+      # eyJtaXN0eWZ5IjogWzQ5Nxxxxxx...
+
 
      The generator function helps to create a cipher. Ciphers is a dictionary containing ascii or utf-8 characters,
      you can change this at will using the generator function to create your own unique cipher. The first argument is
@@ -234,19 +235,19 @@ def decode(data: str,
 
      .. code-block:: python
 
-     from mistyfy import encode, decode, ciphers, generator
-     import os
+      from mistyfy import encode, decode, ciphers, generator
+      import os
 
-     gn = generator(ciphers, -400, 138192812)
-     secret = os.urandom(16)
-     a = "This is a secret message or password"
-     b = encode(a, secret, gn)
-     # output is a string
-     # eyJtaXN0eWZ5IjogWzQ5Nxxxxxx...
-     # decode the data with the below
-     c = decode(b, secret, gn)
-     # Output:
-     # This is a secret message or password
+      gn = generator(ciphers, -400, 138192812)
+      secret = os.urandom(16)
+      a = "This is a secret message or password"
+      b = encode(a, secret, gn)
+      # output is a string
+      # eyJtaXN0eWZ5IjogWzQ5Nxxxxxx...
+      # decode the data with the below
+      c = decode(b, secret, gn)
+      # Output:
+      # This is a secret message or password
 
     :param data: A strings of encoded data
 
@@ -335,14 +336,14 @@ def signs(data: t.Any, secret: str, auth_size=16, **kwargs) -> str:
 
     .. code-block:: python
 
-    from mistyfy import signs
+     from mistyfy import signs
 
-    secret = "somesecretstuff"
-    password = "mypasswordstuff"
+     secret = "somesecretstuff"
+     password = "mypasswordstuff"
 
-    code = signs(password, secret)
-    # result
-    # c2342328dhsjxxxxxx
+     code = signs(password, secret)
+     # result
+     # c2342328dhsjxxxxxx
 
     :param data: Any data value,
 
@@ -365,15 +366,15 @@ def verify_signs(data: t.Any, signature: str, **kwargs) -> bool:
 
     .. code-block:: python
 
-    from mistyfy import verify_signs, signs
+     from mistyfy import verify_signs, signs
 
-    secret = "somesecretstuff"
-    password = "mypasswordstuff"
-    code = signs(password, secret)
+     secret = "somesecretstuff"
+     password = "mypasswordstuff"
+     code = signs(password, secret)
 
-    reveal = verify_signs(password, code, secret=secret)
-    # result
-    # mypasswordstuff
+     reveal = verify_signs(password, code, secret=secret)
+     # result
+     # mypasswordstuff
 
     :param data: Any encrypted data
 
