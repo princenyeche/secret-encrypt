@@ -2,7 +2,7 @@ from mistyfy import encode, decode, ciphers, generator, signs, verify_signs
 import unittest
 import os
 
-SECRET = os.environ.get("SECRET_MISTYFY")
+SECRET = os.environ.get("SECRET_MISTYFY") or ""
 STRING_BLOCK = """
 Latin script
 Main article: Latin script in Unicode
@@ -29,7 +29,7 @@ class Mystery(unittest.TestCase):
         self.assertIsInstance(reveal, str)
 
     def test_sign_verify(self):
-        password = os.environ.get("MISTYFY_PASSWORD_TEST")
+        password = os.environ.get("MISTYFY_PASSWORD_TEST") or ""
         encrypt = signs(password, secret=SECRET)
         verify = verify_signs(password, encrypt, secret=SECRET)
         self.assertTrue(verify is True, "Not True")
