@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 """
 This is a simple algorithm that provides you the option
 to encrypt a series of strings in your own way, pass that string encoded up to 2 layers,
@@ -77,21 +78,22 @@ def generator(cipher: dict,
               fmt: bool = True) -> t.Union[str, dict]:
     """Generates a random unique number for each characters.
 
-     .. code-block:: python
+    .. code-block:: python
 
-     from mistyfy import ciphers, generator
-     import json
-     import os
+      from mistyfy import ciphers, generator
+      import json
+      import os
 
-     if not os.path.exists('../data/config.json'):
-         gen = generator(ciphers, -400, 13931283)
-         json.dump(gen, open('../data/config.json', mode='w+', encoding='utf-8'),
-                 indent=4, sort=True)
+      if not os.path.exists('../data/config.json'):
+          gen = generator(ciphers, -400, 13931283)
+          json.dump(gen, open('../data/config.json', mode='w+', encoding='utf-8'),
+                  indent=4, sort=True)
 
-     if __name__ == "__main__":
-         if os.path.isfile('../data/config.json'):
-             data = json.dumps(json.load(open('../data/config.json')))
-             print(data)
+
+      if __name__ == "__main__":
+           if os.path.isfile('../data/config.json'):
+              data = json.dumps(json.load(open('../data/config.json')))
+              print(data)
 
 
     :param cipher: A pseudo series of text
@@ -121,6 +123,7 @@ def generator(cipher: dict,
 def encode(data: str,
            secret: str,
            cipher: t.Union[str, dict] = None,
+           expire: int = 3600,
            **kwargs: t.Any) -> t.Union[bytes, str]:
     """
      Encrypts a given string and send an output.
@@ -149,6 +152,8 @@ def encode(data: str,
     :param secret: A secret key.
 
     :param cipher: a pseudo randomizer
+
+    :param expire: int = The number of seconds an encoded data can last for.
 
     :param kwargs: Additional parameters you can add to hashlib
 
@@ -180,7 +185,6 @@ def encode(data: str,
 
                usedforsecurity: bool = ...
 
-               expire: int = The number of seconds an encoded data can last for.
 
     :return: string with signature and the data in bs64(when decrypted returns list of numbers)
     """
@@ -210,11 +214,10 @@ def encode(data: str,
             decode_ = _encode.decode("utf-8")  # make the bytes a string instead
             # put a timestamp to the request, default is 3600 seconds
             make_time = datetime.datetime.utcnow()
-            expire: int = kwargs["expire"] if "expire" in kwargs else 3600
             future = make_time + datetime.timedelta(seconds=expire)
             str_fmt = future.strftime("%Y-%m-%d %H:%M:%S.%f")  # format the time into strings
             # this will contain a signed signature of the data
-            sig = signs(decode_, secret=secret, **kwargs)
+            sig = signs(decode_, secret, **kwargs)
             # return a string of the encoded data
             encode_export = jo.dumps({"data": decode_, "expire": str_fmt, "signature": sig})
             results = b.b64encode(encode_export.encode("utf-8"))  # bs64 the data again
