@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="mistyfy",
-    version="2.0.2",
+    version="2.0.4",
     author="Prince Nyeche",
     author_email="support@elfapp.website",
     description="A package that helps encrypt any given string and returns an encrypted string with a signed hash."
@@ -13,7 +13,7 @@ setuptools.setup(
                 "how to decrypt it because you control the cipher.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/princenyeche/secret-encrypt",
+    url="https://github.com/princenyeche/mistyfy",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

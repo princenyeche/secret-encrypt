@@ -24,7 +24,7 @@
 
 Mistyfy
 =================
-A package that helps encrypt any given string and returns an encrypted version of it. This package is very pythonic and has no dependencies. You can expand on it but it gives you the ability to encrypt data in a way only you can understand.
+A package that helps encrypt any given string and returns an encrypted version of it. This package is very pythonic and has no dependencies. You can expand on it but it gives you the ability to encrypt data in a way only you can understand or decrypt.
 
 
 Install
@@ -42,7 +42,7 @@ OR
 
 .. code-block:: bash
 
-    python3 - m pip install mistyfy
+    python3 -m pip install mistyfy
     
 
 How to use it
@@ -52,7 +52,7 @@ How to use it
 
  from mistyfy import encode, decode, ciphers, generator
  import os
- # ciphers is a dictionary containing ascii characters, you can change this at will
+ # ciphers is a dictionary containing ascii or utf-8 characters, you can change this at will
  # use the generator function to create your own unique cipher
  gn = generator(ciphers, -400, 138192812) # first arg is the cipher block, 
  # second & third arg is the start and stop counter

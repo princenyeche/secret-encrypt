@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 This is a simple algorithm that provides you the option
 to encrypt a series of strings in your own way, pass that string encoded up to 2 layers,
@@ -72,10 +71,11 @@ ciphers = {
 }
 
 
-def generator(cipher: dict,
-              start: int = 70,
-              stop: int = 1000,
-              fmt: bool = True) -> t.Union[str, dict]:
+def generator(
+        cipher: dict,
+        start: int = 70,
+        stop: int = 1000,
+        fmt: bool = True) -> t.Union[str, dict]:
     """Generates a random unique number for each characters.
 
     .. code-block:: python
@@ -95,6 +95,9 @@ def generator(cipher: dict,
               data = json.dumps(json.load(open('../data/config.json')))
               print(data)
 
+
+    .. versionadded:: 2.0.0
+    fmt argument - Exports the cipher format in string if true, dictionary if false.
 
     :param cipher: A pseudo series of text
 
@@ -120,11 +123,12 @@ def generator(cipher: dict,
     return jo.dumps(cipher) if fmt is True else cipher
 
 
-def encode(data: str,
-           secret: str,
-           cipher: t.Union[str, dict] = None,
-           expire: int = 3600,
-           **kwargs: t.Any) -> t.Union[bytes, str]:
+def encode(
+        data: str,
+        secret: str,
+        cipher: t.Union[str, dict] = None,
+        expire: int = 3600,
+        **kwargs: t.Any) -> str:
     """
      Encrypts a given string and send an output.
 
@@ -147,21 +151,24 @@ def encode(data: str,
      you can change this at will using the generator function to create your own unique cipher. The first argument is
      the cipher block, second & third argument is the start and stop counter.
 
+     .. versionadded:: 2.0.0
+    expire argument - The number of seconds an encoded data can last for. This timestamp is in UTC. By default
+    it is set to 1 hour from the initial encoded time.
+
     :param data: a string value
 
     :param secret: A secret key.
 
     :param cipher: a pseudo randomizer
 
-    :param expire: int = The number of seconds an encoded data can last for.
+    :param expire: The number of seconds an encoded data can last for.
 
     :param kwargs: Additional parameters you can add to hashlib
 
                *options*
 
-               *auth_size: integer - If used in encode, the same size must be used for decode
-
-               *Taken: from arguments from blake2b
+               auth_size: integer - If used in encode, the same size must be used for decode
+               taken from arguments from blake2b
 
                key: Union[bytes, bytearray, memoryview, array, mmap, mmap] = ...,
 
@@ -191,8 +198,8 @@ def encode(data: str,
     _secret = str(secret)
     secret = _secret
     try:
-        if not isinstance(data, (str, dict)):
-            raise TypeError("Expected strings or dictionaries got {} instead".format(type(data)))
+        if not isinstance(data, str):
+            raise TypeError("Expected `data` argument to strings got {} instead".format(type(data)))
         else:
             gain = []
             if cipher is None:
@@ -225,14 +232,15 @@ def encode(data: str,
             return _do_results
     except ValueError as error:
         if error:
-            return "You are using the wrong data type, expecting a string as data."
-        return "Failure encrypting data"
+            return "You are seem to be using some wrong data format. Check your entered data."
+        return "Failure encrypting data."
 
 
-def decode(data: str,
-           secret: str,
-           cipher: t.Optional[str] = None,
-           **kwargs: t.Any) -> str:
+def decode(
+        data: str,
+        secret: str,
+        cipher: t.Optional[str] = None,
+        **kwargs: t.Any) -> str:
     """
      Decrypts a data and sends output as string. Usually the original form of an encoded data.
 
@@ -263,8 +271,7 @@ def decode(data: str,
                *options*
 
                auth_size: integer - If used in encode, the same size must be used for decode
-
-               Taken: from arguments from blake2b
+               taken from arguments from blake2b
 
                key: Union[bytes, bytearray, memoryview, array, mmap, mmap] = ...,
 
@@ -294,7 +301,7 @@ def decode(data: str,
     secret = _secret
     try:
         if not isinstance(data, str):
-            raise TypeError("Expected strings got {} instead".format(type(data)))
+            raise TypeError("Expected your `data` argument to be strings got {} instead".format(type(data)))
         else:
             if cipher is None:
                 raise TypeError('Expecting a series of cipher for each character.')
@@ -327,14 +334,19 @@ def decode(data: str,
                 # return a string output
                 return "".join(parse)
             else:
-                return "Unable to decrypt data, incorrect value."
+                return "Unable to decrypt data, incorrect value detected."
     except ValueError as error:
         if error:
-            return "You are using the wrong data type, expecting data to be characters in strings."
-        return "Failure decrypting data"
+            return "You are seem to be using the wrong data value or maybe the data " \
+                   "used as value in the data argument is incorrect."
+        return "Failure decrypting data."
 
 
-def signs(data: t.Any, secret: str, auth_size=16, **kwargs) -> str:
+def signs(
+        data: t.Any,
+        secret: str,
+        auth_size=16,
+        **kwargs) -> str:
     """Using blake2b, a set of encryption algorithms to sign our data.
 
     .. code-block:: python
@@ -364,7 +376,10 @@ def signs(data: t.Any, secret: str, auth_size=16, **kwargs) -> str:
     return _encode.decode("utf-8")
 
 
-def verify_signs(data: t.Any, signature: str, **kwargs) -> bool:
+def verify_signs(
+        data: t.Any,
+        signature: str,
+        **kwargs) -> bool:
     """Verify that a signed byte is indeed the right hash.
 
     .. code-block:: python
@@ -385,7 +400,7 @@ def verify_signs(data: t.Any, signature: str, **kwargs) -> bool:
 
     :param kwargs: Additional arguments to use
 
-            auth_key: Authenticate key passed to signs function.
+            auth_size: Authenticate key passed to signs function.
 
             secret: A secret key passed to signs function
             You can also use the same arguments applicable to blake2b
