@@ -1,5 +1,10 @@
 # Mistyfy change log
 
+**Release 2.0.4** - 2022-04-16
+### Patch
+* Patches
+
+
 **Release 2.0.3** - 2022-04-16
 ### Patch
 * Minor patch updates
