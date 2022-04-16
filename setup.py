@@ -13,7 +13,7 @@ setuptools.setup(
                 "how to decrypt it because you control the cipher.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/princenyeche/secret-encrypt",
+    url="https://github.com/princenyeche/mistyfy",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
