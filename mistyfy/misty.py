@@ -70,18 +70,6 @@ ciphers = {
     '³': 425, '²': 525, '■': 625, '&': 725
 }
 
-ciphers.__doc__ = """A dictionary object which contains a curated list of
-ascii or utf-8 characters. This object can be mutated into whatever character
-structure you want by importing it and change every character.
-
-By default it comes with `225` characters. Which includes alphanumeric and special characters::
-
- import mistyfy as ms
- 
- ms.ciphers = {} # denoting new characters
- 
-"""
-
 
 def generator(
         cipher: dict,
