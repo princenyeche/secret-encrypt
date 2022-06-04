@@ -233,8 +233,7 @@ def encode(
     except Exception as error:
         if isinstance(error, ValueError):
             return "You seem to be using some wrong data format. Check your entered data."
-        else:
-            return "Failure encrypting data."
+        return "Failure encrypting data."
 
 
 def decode(
@@ -340,8 +339,7 @@ def decode(
         if isinstance(error, ValueError):
             return "You seem to be using the wrong data value or maybe the data " \
                    "used as value in the data argument is incorrect."
-        else:
-            return "Failure decrypting data."
+        return "Failure decrypting data."
 
 
 def signs(
