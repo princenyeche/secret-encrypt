@@ -1,5 +1,10 @@
 # Mistyfy change log
 
+**Release 2.0.5** - 2022-06-04
+### Patch
+* Patches
+* Added a defined exception error for encoding and decoding functions
+
 **Release 2.0.4** - 2022-04-16
 ### Patch
 * Patches
