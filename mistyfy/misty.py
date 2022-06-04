@@ -230,9 +230,9 @@ def encode(
             results = b.b64encode(encode_export.encode("utf-8"))  # bs64 the data again
             _do_results = results.decode("utf-8")  # ensure its in strings
             return _do_results
-    except ValueError as error:
-        if error:
-            return "You are seem to be using some wrong data format. Check your entered data."
+    except Exception as error:
+        if isinstance(error, ValueError):
+            return "You seem to be using some wrong data format. Check your entered data."
         return "Failure encrypting data."
 
 
@@ -335,9 +335,9 @@ def decode(
                 return "".join(parse)
             else:
                 return "Unable to decrypt data, incorrect value detected."
-    except ValueError as error:
-        if error:
-            return "You are seem to be using the wrong data value or maybe the data " \
+    except Exception as error:
+        if isinstance(error, ValueError):
+            return "You seem to be using the wrong data value or maybe the data " \
                    "used as value in the data argument is incorrect."
         return "Failure decrypting data."
 
