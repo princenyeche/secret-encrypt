@@ -23,7 +23,7 @@ secret = b'somesecretkey' # create any secret key, easier if you use os.urandom(
 # secret = os.urandom(16)
 a = "This is a secret message or password"
 b = encode(a, secret, gn) 
-# output is a dictionary which contains a signed value when decrypting:
+# output is a string which contains a signed value when decrypting:
 # 'eyJtaXN0eWZ5IjogWzQ5Nxxxxxx...
 c = decode(b, secret, gn)
 # Output:
