@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 This is a simple algorithm that provides you the option
-to encrypt a series of strings in your own way, pass that string encoded up to 2 layers,
-send the data over the internet and decrypt the original data.
+to encrypt a series of strings in your own way, pass that string encoded
+up to 2 layers, send the data over the internet and decrypt the original data.
 The wonderful part of this module is that you can have a vast amount of
 text which is of little object size.
 """
@@ -86,8 +86,8 @@ def generator(
 
       if not os.path.exists('../data/config.json'):
           gen = generator(ciphers, -400, 13931283)
-          json.dump(gen, open('../data/config.json', mode='w+', encoding='utf-8'),
-                  indent=4, sort=True)
+          json.dump(gen, open('../data/config.json', mode='w+',
+                   encoding='utf-8'), indent=4, sort=True)
 
 
       if __name__ == "__main__":
@@ -97,7 +97,8 @@ def generator(
 
 
     .. versionadded:: 2.0.0
-    fmt argument - Exports the cipher format in string if true, dictionary if false.
+    fmt argument - Exports the cipher format in string if true,
+                   dictionary if false.
 
     :param cipher: A pseudo series of text
 
@@ -105,7 +106,8 @@ def generator(
 
     :param stop: An integer to our stop randomization
 
-    :param fmt: Exports the cipher format in string if true, dictionary if false.
+    :param fmt: Exports the cipher format in string if true,
+                dictionary if false.
 
     :return: A dictionary having unique numbers for your cipher
     """
@@ -139,21 +141,26 @@ def encode(
 
       gn = generator(ciphers, -400, 138192812)
 
-      secret = b'somesecretkey' # create any secret key, easier if you use os.urandom(n)
+      # create any secret key, easier if you use os.urandom(n)
+      secret = b'somesecretkey'
       # secret = os.urandom(16)
       a = "This is a secret message or password"
       b = encode(a, secret, gn)
-      # output is a string base64, encoded with a signature, and mistyfied with the cipher.
+      # output is a string base64, encoded with a signature,
+      # and mistyfied with the cipher.
       # eyJtaXN0eWZ5IjogWzQ5Nxxxxxx...
 
 
-     The generator function helps to create a cipher. Ciphers is a dictionary containing ascii or utf-8 characters,
-     you can change this at will using the generator function to create your own unique cipher. The first argument is
-     the cipher block, second & third argument is the start and stop counter.
+     The generator function helps to create a cipher. Ciphers is a dictionary
+     containing ascii or utf-8 characters, you can change this at will using
+     the generator function to create your own unique cipher.
+     The first argument is the cipher block, second & third argument is the
+     start and stop counter.
 
      .. versionadded:: 2.0.0
-    expire argument - The number of seconds an encoded data can last for. This timestamp is in UTC. By default
-    it is set to 1 hour from the initial encoded time.
+    expire argument - The number of seconds an encoded data can last for.
+    This timestamp is in UTC. By default it is set to 1 hour from the
+    initial encoded time.
 
     :param data: a string value
 
@@ -167,14 +174,17 @@ def encode(
 
                *options*
 
-               auth_size: integer - If used in encode, the same size must be used for decode
-               taken from arguments from blake2b
+               auth_size: integer - If used in encode, the same size must be
+               used for decode, taken from arguments from blake2b
 
-               key: Union[bytes, bytearray, memoryview, array, mmap, mmap] = ...,
+               key: Union[bytes, bytearray, memoryview,
+                                 array, mmap, mmap] = ...,
 
-               salt: Union[bytes, bytearray, memoryview, array, mmap, mmap] = ...,
+               salt: Union[bytes, bytearray, memoryview,
+                                  array, mmap, mmap] = ...,
 
-               person: Union[bytes, bytearray, memoryview, array, mmap, mmap] = ...,
+               person: Union[bytes, bytearray, memoryview,
+                                  array, mmap, mmap] = ...,
 
                fanout: int = ...,
 
@@ -193,17 +203,20 @@ def encode(
                usedforsecurity: bool = ...
 
 
-    :return: string with signature and the data in bs64(when decrypted returns list of numbers)
+    :return: string with signature and the data in
+                                 bs64(when decrypted returns list of numbers)
     """
     _secret = str(secret)
     secret = _secret
     try:
         if not isinstance(data, str):
-            raise TypeError("Expected `data` argument to strings got {} instead".format(type(data)))
+            raise TypeError("Expected `data` argument to strings "
+                            "got {} instead".format(type(data)))
         else:
             gain = []
             if cipher is None:
-                raise TypeError("Expecting a series of cipher for each character.")
+                raise TypeError("Expecting a series of cipher for "
+                                "each character.")
             # do a loop through the strings and interchange it with numbers
             if isinstance(cipher, str):
                 _cipher = jo.loads(cipher)
@@ -218,21 +231,26 @@ def encode(
             f = jo.dumps(transform)  # change the list into a string
             s = f.encode("utf-8")  # encode the string into bytes
             _encode = b.b64encode(s)  # bs64 encode the bytes
-            decode_ = _encode.decode("utf-8")  # make the bytes a string instead
+            # make the bytes a string instead
+            decode_ = _encode.decode("utf-8")
             # put a timestamp to the request, default is 3600 seconds
             make_time = datetime.datetime.utcnow()
             future = make_time + datetime.timedelta(seconds=expire)
-            str_fmt = future.strftime("%Y-%m-%d %H:%M:%S.%f")  # format the time into strings
+            # format the time into strings
+            str_fmt = future.strftime("%Y-%m-%d %H:%M:%S.%f")
             # this will contain a signed signature of the data
             sig = signs(decode_, secret, **kwargs)
             # return a string of the encoded data
-            encode_export = jo.dumps({"data": decode_, "expire": str_fmt, "signature": sig})
-            results = b.b64encode(encode_export.encode("utf-8"))  # bs64 the data again
+            encode_export = jo.dumps({"data": decode_, "expire": str_fmt,
+                                      "signature": sig})
+            # bs64 the data again
+            results = b.b64encode(encode_export.encode("utf-8"))
             _do_results = results.decode("utf-8")  # ensure its in strings
             return _do_results
     except Exception as error:
         if isinstance(error, ValueError):
-            return "You seem to be using some wrong data format. Check your entered data."
+            return "You seem to be using some wrong data format. " \
+                   "Check your entered data."
         return "Failure encrypting data."
 
 
@@ -242,7 +260,8 @@ def decode(
         cipher: t.Optional[str] = None,
         **kwargs: t.Any) -> str:
     """
-     Decrypts a data and sends output as string. Usually the original form of an encoded data.
+     Decrypts a data and sends output as string. Usually the original form of
+     an encoded data.
 
      .. code-block:: python
 
@@ -270,14 +289,17 @@ def decode(
 
                *options*
 
-               auth_size: integer - If used in encode, the same size must be used for decode
-               taken from arguments from blake2b
+               auth_size: integer - If used in encode, the same
+               size must be used for decode taken from arguments from blake2b
 
-               key: Union[bytes, bytearray, memoryview, array, mmap, mmap] = ...,
+               key: Union[bytes, bytearray, memoryview,
+                             array, mmap, mmap] = ...,
 
-               salt: Union[bytes, bytearray, memoryview, array, mmap, mmap] = ...,
+               salt: Union[bytes, bytearray, memoryview,
+                            array, mmap, mmap] = ...,
 
-               person: Union[bytes, bytearray, memoryview, array, mmap, mmap] = ...,
+               person: Union[bytes, bytearray, memoryview,
+                            array, mmap, mmap] = ...,
 
                fanout: int = ...,
 
@@ -301,28 +323,37 @@ def decode(
     secret = _secret
     try:
         if not isinstance(data, str):
-            raise TypeError("Expected your `data` argument to be strings got {} instead".format(type(data)))
+            raise TypeError("Expected your `data` argument to be "
+                            "strings got {} instead".format(type(data)))
         else:
             if cipher is None:
-                raise TypeError('Expecting a series of cipher for each character.')
-            # validate that the signature is indeed correct with the data that was received.
+                raise TypeError('Expecting a series of cipher for '
+                                'each character.')
+            # validate that the signature is indeed correct with
+            # the data that was received.
             if isinstance(cipher, str):
                 _cipher = jo.loads(cipher)
                 cipher = _cipher
             _decode_result = data.encode("utf-8")  # encode into bytes
-            results = b.b64decode(_decode_result).decode("utf-8")  # decode into strings
+            # decode into strings
+            results = b.b64decode(_decode_result).decode("utf-8")
             get_dict = jo.loads(results)
-            validate_signature = verify_signs(get_dict['data'], get_dict['signature'], secret=secret, **kwargs)
+            validate_signature = verify_signs(get_dict['data'],
+                                              get_dict['signature'],
+                                              secret=secret, **kwargs)
             if validate_signature is True:
                 # check if the time has expired
                 if get_dict["expire"]:
                     current_time = datetime.datetime.utcnow()
-                    if datetime.datetime.strptime(get_dict["expire"], "%Y-%m-%d %H:%M:%S.%f") > current_time:
+                    if datetime.datetime. \
+                            strptime(get_dict["expire"],
+                                     "%Y-%m-%d %H:%M:%S.%f") > current_time:
                         pass
                     else:
                         return "Unable to validate data as token has expired."
 
-                port = b.b64decode(get_dict['data'])  # decode bs64 encrypted data
+                # decode bs64 encrypted data
+                port = b.b64decode(get_dict['data'])
                 key = port.decode("utf-8")  # decode from bytes
                 parse = []
                 j = jo.loads(key).get('mistyfy')
@@ -332,7 +363,9 @@ def decode(
                         if x == v:
                             parse.append(k)
                 # return a string output
-                return "".join(parse)
+                return "".join(parse) \
+                    if len(parse) != 0 else "Empty value " \
+                                            "detected. Decryption failed."
             else:
                 return "Unable to decrypt data, incorrect value detected."
     except Exception as error:
@@ -411,6 +444,7 @@ def verify_signs(
     _data = str(data)
     data = _data
     if "secret" not in kwargs:
-        raise NameError("You're missing the `secret` keyword argument. E.g secret='somesecrete'")
+        raise NameError("You're missing the `secret` keyword argument. "
+                        "E.g secret='somesecrete'")
     confirm = signs(data, **kwargs)
     return hmac.compare_digest(confirm, signature)
