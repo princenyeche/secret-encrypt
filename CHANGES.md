@@ -1,5 +1,10 @@
 # Mistyfy change log
 
+**Release 2.0.6** - 2022-08-23
+### Update
+* Reduced code column to less than 80 characters according to PEP8
+
+
 **Release 2.0.5** - 2022-06-04
 ### Patch
 * Patches
