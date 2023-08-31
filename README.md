@@ -1,5 +1,5 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b00ef172196949319f43b12e6bc3f4ae)](https://www.codacy.com/gh/princenyeche/mistyfy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=princenyeche/mistyfy&amp;utm_campaign=Badge_Grade)
-[![Downloads](https://pepy.tech/badge/mistyfy)](https://pepy.tech/project/mistyfy)
+[![Downloads](https://static.pepy.tech/badge/mistyfy)](https://pepy.tech/project/mistyfy)
 [![PyPI version](https://badge.fury.io/py/mistyfy.svg)](https://badge.fury.io/py/mistyfy)
 ![GitHub](https://img.shields.io/github/license/princenyeche/mistyfy)
 [![Documentation Status](https://readthedocs.org/projects/mistyfy/badge/?version=latest)](https://mistyfy.readthedocs.io/en/latest/?badge=latest)
