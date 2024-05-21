@@ -1,3 +1,4 @@
 sphinxcontrib-httpdomain==1.7.0
 mistyfy
 sphinx-autoapi
+requests>=2.32.0 # not directly required, pinned by Snyk to avoid a vulnerability
